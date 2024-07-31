@@ -24,9 +24,10 @@ class HightouchTriggerSyncOperator(BaseOperator):
         For more information on how to use this operator, take a look at the guide:
         :ref:`https://hightouch.io/docs/integrations/airflow/`
 
-    :param sync_id: ID of the sync to trigger
+    :param sync_id: ID of the sync to trigger, templated, optional
     :type sync_id: int
-    :param sync_slug: Slug of the sync to trigger
+    :param sync_slug: Slug of the sync to trigger, templated, optional
+    :type sync_slug: str
     :param connection_id: Name of the connection to use, defaults to hightouch_default
     :type connection_id: str
     :param api_version: Hightouch API version. Only v3 is supported.
@@ -43,6 +44,9 @@ class HightouchTriggerSyncOperator(BaseOperator):
 
     operator_extra_links = (HightouchLink(),)
 
+    template_fields = ("sync_id", "sync_slug")
+
+    
     @apply_defaults
     def __init__(
         self,
